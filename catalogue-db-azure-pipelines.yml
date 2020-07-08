@@ -25,7 +25,7 @@ resources:
       ref: kevin-azure-pipelines
 
 stages:
-- stage: Docker Build
+- stage: DockerBuild
   displayName: Docker Build stage
   jobs:  
   - template: /pipeline-templates/docker-builddeploy-pipeline.yaml@templates  # Template reference
