@@ -21,6 +21,7 @@ resources:
     - repository: templates
       type: github
       name: northpoint/microservices-demo/pipeline-templates
+      endpoint: github-svcconn
       ref: kevin-azure-pipelines
 
 stages:
