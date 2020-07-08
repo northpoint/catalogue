@@ -1,0 +1,34 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+variables:
+
+ # Container registry service connection established during pipeline creation
+  dockerfilePath: '**/docker/catalogue-db/Dockerfile'
+  tag: '$(Build.BuildId)'
+  imagePullSecret: 'kubeinnovationacr132316be-auth'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: northpoint/microservices-demo/pipeline-templates
+      ref: kevin-azure-pipelines
+
+stages:
+- stage: Docker Build
+  displayName: Docker Build stage
+  jobs:  
+- template: templates/docker-builddeploy-pipeline.yaml@templates  # Template reference
+  parameters:
+    tag: $(tag)
+    acrRepo: catalogue-db
+    dockerfilePath: $(dockerfilePath)
