@@ -33,6 +33,7 @@ stages:
       tag: $(tag)
       acrRepo: catalogue-db
       dockerfilePath: $(dockerfilePath)
+      
 - stage: HelmDeploy
   displayName: Helm Deploy
   jobs:
