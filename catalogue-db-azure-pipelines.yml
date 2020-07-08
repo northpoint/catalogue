@@ -25,14 +25,14 @@ resources:
       ref: kevin-azure-pipelines
 
 stages:
-- stage: DockerBuildPush
-  displayName: Docker Build & Push stage
-  jobs:  
-  - template: /pipeline-templates/docker-builddeploy-pipeline.yaml@templates  # Template reference
-    parameters:
-      tag: $(tag)
-      acrRepo: catalogue-db
-      dockerfilePath: $(dockerfilePath)
+# - stage: DockerBuildPush
+#   displayName: Docker Build & Push stage
+#   jobs:  
+#   - template: /pipeline-templates/docker-builddeploy-pipeline.yaml@templates  # Template reference
+#     parameters:
+#       tag: $(tag)
+#       acrRepo: catalogue-db
+#       dockerfilePath: $(dockerfilePath)
 
 - stage: HelmDeploy
   displayName: Helm Deploy
