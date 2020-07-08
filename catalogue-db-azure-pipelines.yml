@@ -33,3 +33,8 @@ stages:
       tag: $(tag)
       acrRepo: catalogue-db
       dockerfilePath: $(dockerfilePath)
+
+- stage: HelmDeploy
+  displayName: Helm Deploy
+  jobs:
+  - template: /pipeline-templates/helm-deploy-pipeline.yaml@templates
