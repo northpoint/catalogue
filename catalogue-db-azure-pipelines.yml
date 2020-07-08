@@ -18,7 +18,7 @@ pool:
 
 resources:
   repositories:
-    - repository: templates
+    - repository: microservicesdemo
       type: github
       name: northpoint/microservices-demo
       endpoint: github-svcconn
@@ -28,13 +28,17 @@ stages:
 # - stage: DockerBuildPush
 #   displayName: Docker Build & Push stage
 #   jobs:  
-#   - template: /pipeline-templates/docker-builddeploy-pipeline.yaml@templates  # Template reference
+#   - template: /pipeline-templates/docker-builddeploy-pipeline.yaml@microservicesdemo  # Template reference
 #     parameters:
 #       tag: $(tag)
 #       acrRepo: catalogue-db
 #       dockerfilePath: $(dockerfilePath)
-
 - stage: HelmDeploy
   displayName: Helm Deploy
   jobs:
-  - template: /pipeline-templates/helm-deploy-pipeline.yaml@templates
+  - job: Checkout
+    displayName: Checkout Microservices Demo
+    steps:
+    - checkout: microservicesdemo
+
+  - template: /pipeline-templates/helm-deploy-pipeline.yaml@microservicesdemo
