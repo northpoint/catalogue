@@ -28,7 +28,7 @@ stages:
 - stage: Docker Build
   displayName: Docker Build stage
   jobs:  
-  - template: templates/pipeline-templates/docker-builddeploy-pipeline.yaml@templates  # Template reference
+  - template: /pipeline-templates/docker-builddeploy-pipeline.yaml@templates  # Template reference
     parameters:
       tag: $(tag)
       acrRepo: catalogue-db
