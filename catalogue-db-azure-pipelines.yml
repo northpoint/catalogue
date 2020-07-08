@@ -36,5 +36,8 @@ stages:
 - stage: HelmDeploy
   displayName: Helm Deploy
   jobs:
-
+  - job: Checkout
+    steps:
+      - checkout: microservicesdemo
+  
   - template: /pipeline-templates/helm-deploy-pipeline.yaml@microservicesdemo
