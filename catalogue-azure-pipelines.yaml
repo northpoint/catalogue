@@ -33,6 +33,7 @@ stages:
       tag: $(tag)
       acrRepo: catalogue
       dockerfilePath: $(dockerfilePath)
+      buildContext: $(Build.Repository.LocalPath)
       
 # - stage: HelmDeploy
 #  displayName: Helm Deploy
