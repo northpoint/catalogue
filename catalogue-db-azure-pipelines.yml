@@ -40,5 +40,6 @@ stages:
     displayName: Checkout Microservices Demo
     steps:
     - checkout: microservicesdemo
+    - script: dir $(Build.SourcesDirectory)
 
   - template: /pipeline-templates/helm-deploy-pipeline.yaml@microservicesdemo
