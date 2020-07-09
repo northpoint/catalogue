@@ -12,6 +12,7 @@ variables:
   dockerfilePath: '**/docker/catalogue-db/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'kubeinnovationacr132316be-auth'
+  acrRepo: catalogue-db
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -31,10 +32,13 @@ stages:
   - template: /pipeline-templates/docker-builddeploy-pipeline.yaml@microservicesdemo  # Template reference
     parameters:
       tag: $(tag)
-      acrRepo: catalogue-db
+      acrRepo: $(acrRepo)
       dockerfilePath: $(dockerfilePath)
       
-# - stage: HelmDeploy
-#   displayName: Helm Deploy
-#   jobs:
-#   - template: /pipeline-templates/helm-deploy-pipeline.yaml@microservicesdemo
+- stage: HelmDeploy
+  displayName: Helm Deploy
+  jobs:
+  - template: /pipeline-templates/helm-deploy-pipeline.yaml@microservicesdemo
+    parameters:
+      serviceName: cataloguedb
+      image: $(acrRepo):$(tag)
