@@ -11,7 +11,7 @@ variables:
  # Container registry service connection established during pipeline creation
   dockerfilePath: '**/docker/catalogue/Dockerfile'
   tag: '$(Build.BuildId)'
-  imagePullSecret: 'kubeinnovationacr132316be-auth'
+  acrRepo: catalogue
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -35,7 +35,10 @@ stages:
       dockerfilePath: $(dockerfilePath)
       buildContext: $(Build.Repository.LocalPath)
       
-# - stage: HelmDeploy
-#  displayName: Helm Deploy
-#  jobs:
-#  - template: /pipeline-templates/helm-deploy-pipeline.yaml@microservicesdemo
+- stage: HelmDeploy
+  displayName: Helm Deploy
+  jobs:
+  - template: /pipeline-templates/helm-deploy-pipeline.yaml@microservicesdemo
+    parameters:
+      serviceName: catalogue
+      image: $(acrRepo):$(tag)
