@@ -11,9 +11,8 @@ variables:
  # Container registry service connection established during pipeline creation
   dockerfilePath: '**/docker/catalogue-db/Dockerfile'
   tag: '$(Build.BuildId)'
-  imagePullSecret: 'kubeinnovationacr132316be-auth'
   acrRepo: catalogue-db
-
+  
 pool:
   vmImage: 'ubuntu-latest'
 
