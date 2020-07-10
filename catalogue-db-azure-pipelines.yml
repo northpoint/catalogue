@@ -3,6 +3,9 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+name: $(Date:yyyyMMdd)-$(Rev:r)
+# name modifies the Build.BuildNumber format used in tag
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/process/run-number?view=azure-devops&tabs=yaml
 trigger:
 - master
 
@@ -10,7 +13,7 @@ variables:
 
  # Container registry service connection established during pipeline creation
   dockerfilePath: '**/docker/catalogue-db/Dockerfile'
-  tag: '$(Build.BuildId)'
+  tag: '$(Build.BuildNumber)'
   acrRepo: catalogue-db
   
 pool:
