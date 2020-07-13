@@ -3,6 +3,10 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+name: $(Date:yyyyMMdd)-$(Rev:r)
+# name modifies the Build.BuildNumber format used in tag
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/process/run-number?view=azure-devops&tabs=yaml
+
 trigger:
 - master
 
@@ -10,8 +14,8 @@ variables:
 
  # Container registry service connection established during pipeline creation
   dockerfilePath: '**/docker/catalogue/Dockerfile'
-  tag: '$(Build.BuildId)'
-  acrRepo: catalogue
+  tag: '$(Build.BuildNumber)'
+  serviceName: catalogue
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -31,7 +35,7 @@ stages:
   - template: /pipeline-templates/docker-builddeploy-pipeline.yaml@microservicesdemo  # Template reference
     parameters:
       tag: $(tag)
-      acrRepo: catalogue
+      acrRepo: $(serviceName)
       dockerfilePath: $(dockerfilePath)
       buildContext: $(Build.Repository.LocalPath)
       
@@ -40,5 +44,5 @@ stages:
   jobs:
   - template: /pipeline-templates/helm-deploy-pipeline.yaml@microservicesdemo
     parameters:
-      serviceName: catalogue
-      image: $(acrRepo):$(tag)
+      serviceName: $(serviceName)
+      image: $(serviceName):$(tag)
