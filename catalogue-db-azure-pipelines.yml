@@ -14,7 +14,7 @@ variables:
  # Container registry service connection established during pipeline creation
   dockerfilePath: '**/docker/catalogue-db/Dockerfile'
   tag: '$(Build.BuildNumber)'
-  acrRepo: catalogue-db
+  serviceName: catalogue-db
   
 pool:
   vmImage: 'ubuntu-latest'
@@ -34,7 +34,7 @@ stages:
   - template: /pipeline-templates/docker-builddeploy-pipeline.yaml@microservicesdemo  # Template reference
     parameters:
       tag: $(tag)
-      acrRepo: $(acrRepo)
+      acrRepo: $(serviceName)
       dockerfilePath: $(dockerfilePath)
       
 - stage: HelmDeploy
@@ -42,5 +42,5 @@ stages:
   jobs:
   - template: /pipeline-templates/helm-deploy-pipeline.yaml@microservicesdemo
     parameters:
-      serviceName: cataloguedb
-      image: $(acrRepo):$(tag)
+      serviceName: $(serviceName)
+      image: $(serviceName):$(tag)
