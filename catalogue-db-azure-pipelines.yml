@@ -42,5 +42,5 @@ stages:
   jobs:
   - template: /pipeline-templates/helm-deploy-pipeline.yaml@microservicesdemo
     parameters:
-      serviceName: catalogdb
+      serviceName: cataloguedb
       image: $(serviceName):$(tag)
